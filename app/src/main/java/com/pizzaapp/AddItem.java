@@ -5,6 +5,10 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import com.pizzaapp.model.LineItem;
 import com.pizzaapp.model.MenuItem;
@@ -14,13 +18,14 @@ import com.pizzaapp.ui.MenuItemAdapter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class AddItem extends AppCompatActivity {
 
-    private final List<MenuItem> menu = new ArrayList<>();
+    private final ArrayList<MenuItem> menu = new ArrayList<>();
     private MenuItemAdapter menuItemAdapter;
 
     @Override
@@ -29,6 +34,23 @@ public class AddItem extends AppCompatActivity {
         setContentView(R.layout.activity_add_item);
 
         menuItemAdapter = new MenuItemAdapter(this, menu);
+
+        final ListView menuList = (ListView)findViewById(R.id.listView_Menu);
+
+        menuItemAdapter = new MenuItemAdapter(this, menu);
+        menuList.setAdapter(menuItemAdapter);
+
+        menuList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View v, int pos, long id) {
+                MenuItem selectedItem = menu.get(pos);
+                Toast.makeText(getApplicationContext(), "Added " + selectedItem, Toast.LENGTH_LONG).show();
+
+                Intent intent = new Intent(AddItem.this, Home.class);
+                intent.putExtra("key", "value");
+                AddItem.this.startActivity(intent);
+            }
+        });
 
         new MenuService().execute();
     }
