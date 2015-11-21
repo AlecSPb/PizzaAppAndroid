@@ -11,4 +11,5 @@
     <string name="prompt_email">Enter Email</string>
     <string name="title_activity_menu">Menu</string>
     <string name="title_activity_pizza_menu">PizzaMenu</string>
+    <string name="title_activity_pay">Pay</string>
 </resources>

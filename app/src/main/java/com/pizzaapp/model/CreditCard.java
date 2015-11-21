@@ -1,10 +1,12 @@
 package com.pizzaapp.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Ryan on 11/21/2015.
  */
 
-public class CreditCard{
+public class CreditCard implements Serializable {
 
     private String cvs;
     private String number;

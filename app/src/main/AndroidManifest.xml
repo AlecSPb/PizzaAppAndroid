@@ -30,6 +30,10 @@
             android:name=".Home"
             android:label="@string/title_activity_pizza_menu" >
         </activity>
+        <activity
+            android:name=".Pay"
+            android:label="@string/title_activity_pay" >
+        </activity>
     </application>
 
 </manifest>

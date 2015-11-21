@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.pizzaapp.model.Account;
 import com.pizzaapp.model.LineItem;
 import com.pizzaapp.model.MenuItemStatus;
+import com.pizzaapp.model.Order;
 import com.pizzaapp.ui.LineItemAdapter;
 import com.pizzaapp.ui.MenuItemAdapter;
 import com.pizzaapp.util.StringFormatService;
@@ -28,11 +29,13 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Home extends AppCompatActivity {
 
-
+    public Order myOrder;
     public List<LineItem> myOrderItems = new ArrayList<>();
     public LineItemAdapter lineItemAdapter;
     public Account account;
@@ -59,6 +62,17 @@ public class Home extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Home.this, AddItem.class);
                 startActivityForResult(intent, 1);
+            }
+        });
+
+        Button payButton = (Button) findViewById(R.id.button_Pay);
+        payButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Home.this, Pay.class);
+                myOrder.setLineItems(myOrderItems);
+                intent.putExtra("order", myOrder);
+                startActivity(intent);
             }
         });
     }
@@ -117,6 +131,12 @@ public class Home extends AppCompatActivity {
 
         TextView totalTV = (TextView) findViewById(R.id.total);
         totalTV.setText("Total: " + StringFormatService.sharedInstance().currencyToString(total));
+    }
+
+    public void resetOrder() {
+        myOrder = new Order();
+        myOrderItems.clear();
+        lineItemAdapter.notifyDataSetChanged();
     }
 
 }

@@ -3,9 +3,10 @@ package com.pizzaapp.model;
 /**
  * Created by Ryan on 11/21/2015.
  */
+import java.io.Serializable;
 import java.util.UUID;
 
-public class PaymentTransaction {
+public class PaymentTransaction implements Serializable {
 
     private String id;
     private String timestamp;
