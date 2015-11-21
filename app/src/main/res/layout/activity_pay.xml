@@ -47,9 +47,9 @@
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="315dp"
+        android:layout_height="184dp"
         android:id="@+id/payListView"
-        android:layout_weight="0.72" />
+        android:layout_weight="0.86" />
 
     <GridLayout
         android:layout_width="match_parent"
@@ -57,16 +57,25 @@
         android:layout_gravity="center_horizontal">
 
         <Button
-            android:layout_width="158dp"
+            android:layout_width="110dp"
             android:layout_height="64dp"
-            android:text="Add Payment"
+            android:text="Add Card"
             android:id="@+id/addPaymentButton"
             android:layout_row="0"
             android:layout_column="0"
             android:layout_marginLeft="10dp" />
 
         <Button
-            android:layout_width="158dp"
+            android:layout_width="122dp"
+            android:layout_height="64dp"
+            android:text="Pay Cash"
+            android:id="@+id/buttonCash"
+            android:layout_row="0"
+            android:layout_column="3"
+            android:layout_marginRight="10dp" />
+
+        <Button
+            android:layout_width="110dp"
             android:layout_height="64dp"
             android:text="Finish"
             android:id="@+id/payFinishButton"
