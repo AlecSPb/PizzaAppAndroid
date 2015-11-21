@@ -1,5 +1,6 @@
 package com.pizzaapp;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -62,24 +63,16 @@ public class AddPayment extends AppCompatActivity {
                     //If everything is valid, create the paymenttransaction and send back to the summary activity
                     PaymentTransaction p = new PaymentTransaction(amount, c);
                     //Intent i = new Intent(AddPayment.this, Summary.class);
+
+                    Intent intent = new Intent();
+                    intent.putExtra("newPayment", p);
+                    setResult(Activity.RESULT_OK, intent);
+                    finish();
                 }
 
 
 
                 Toast.makeText(getApplicationContext(), name + " " + cardNumber + " " + amount + " " + expDate, Toast.LENGTH_LONG).show();
-
-                //Intent i = new Intent(AddPayment.this, Summary.class);
-
-                /*
-                MenuItem selectedItem = menu.get(pos);
-                PaymentTransaction
-                LineItem newItem = new LineItem();
-                newItem.setQuantity(1);
-                newItem.setItem(selectedItem);
-                Toast.makeText(getApplicationContext(), "Added " + selectedItem.toString(), Toast.LENGTH_LONG).show();
-
-                AddItem.this.returnItemToHome(newItem);
-                */
             }
         });
     }
