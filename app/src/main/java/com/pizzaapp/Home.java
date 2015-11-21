@@ -21,6 +21,7 @@ import com.pizzaapp.model.Account;
 import com.pizzaapp.model.LineItem;
 import com.pizzaapp.model.MenuItemStatus;
 import com.pizzaapp.model.Order;
+import com.pizzaapp.model.PaymentTransaction;
 import com.pizzaapp.service.ApiProtocol;
 import com.pizzaapp.ui.LineItemAdapter;
 import com.pizzaapp.ui.MenuItemAdapter;
@@ -131,6 +132,13 @@ public class Home extends AppCompatActivity {
                 new OrderService(finishedOrder).execute();
                 resetOrder();
                 updateTotal();
+
+                double payed = 0.0;
+                for (PaymentTransaction transaction : finishedOrder.getTransactions()) {
+                    payed += transaction.getAmount();
+                }
+
+                new PointsService(account, (int)payed).execute();
             }
         }
     }
@@ -179,6 +187,49 @@ public class Home extends AppCompatActivity {
             super.onPostExecute(order);
 
             Toast.makeText(getApplicationContext(), "Order placed.", Toast.LENGTH_LONG).show();
+        }
+
+
+    }
+
+    public class PointsService extends AsyncTask<Void, Void, Account> {
+
+        public Account account;
+        public int points;
+
+        public PointsService(Account account, int points) {
+            super();
+            this.account = account;
+            this.points = points;
+        }
+
+        @Override
+        protected Account doInBackground(Void... params) {
+            try {
+                RestTemplate template = new RestTemplate();
+                template.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+
+                account.setPoints(account.getPoints() + points);
+                //return template.putForObject(ApiProtocol.server + "/accounts/" + account.getId(), account, Account.class);
+                template.put(ApiProtocol.server + "/accounts/" + account.getId(), account);
+
+                return account;
+
+            } catch (Exception e) {
+                Log.e("PointsService", e.getMessage(), e);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Account acc) {
+            super.onPostExecute(acc);
+
+            if(acc == null) return;
+
+            Toast.makeText(getApplicationContext(), "Points Rewarded: " + points, Toast.LENGTH_LONG).show();
+            TextView pointsTV = (TextView) findViewById(R.id.points);
+            pointsTV.setText("Points: " + acc.getPoints());
         }
 
 

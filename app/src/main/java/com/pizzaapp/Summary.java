@@ -50,6 +50,7 @@ public class Summary extends AppCompatActivity {
 
                 myOrder.setAddress(address);
                 myOrder.setPhoneNumber(phone.getText().toString());
+                myOrder.setIsDelivery(true);
 
                 Intent intent = new Intent();
                 intent.putExtra("finishedOrder", myOrder);
