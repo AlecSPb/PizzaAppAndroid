@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.pizzaapp.model.LineItem;
 import com.pizzaapp.model.Order;
@@ -39,6 +40,21 @@ public class Pay extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Pay.this, AddPayment.class);
                 startActivityForResult(intent, 1);
+            }
+        });
+
+        Button payWithCash = (Button) findViewById(R.id.buttonCash);
+        payWithCash.setOnClickListener(new View.OnClickListener(){
+
+            public void onClick(View v) {
+                if(transactions.isEmpty()) {
+                    order.setTransactions(transactions);
+                    Intent intent = new Intent(Pay.this, Summary.class);
+                    intent.putExtra("order", order);
+                    startActivityForResult(intent, 2);
+                }else{
+                    Toast.makeText(Pay.this, "You cannot pay with cash and card", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
