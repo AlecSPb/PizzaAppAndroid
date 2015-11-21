@@ -27,6 +27,13 @@ public class PaymentTransaction implements Serializable {
         this.paymentType = paymentType;
     }
 
+    public PaymentTransaction(double amount, CreditCard card){
+        this.id = UUID.randomUUID().toString();
+        this.timestamp = "" + System.currentTimeMillis() / 1000L;
+        this.amount = amount;
+        this.card = card;
+    }
+
     public CreditCard getCard(){
         return card;
     }
