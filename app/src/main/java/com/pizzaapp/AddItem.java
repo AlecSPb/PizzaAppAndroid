@@ -48,7 +48,7 @@ public class AddItem extends AppCompatActivity {
                 LineItem newItem = new LineItem();
                 newItem.setQuantity(1);
                 newItem.setItem(selectedItem);
-                Toast.makeText(getApplicationContext(), "Added " + selectedItem, Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Added " + selectedItem.toString(), Toast.LENGTH_LONG).show();
 
                 AddItem.this.returnItemToHome(newItem);
             }
