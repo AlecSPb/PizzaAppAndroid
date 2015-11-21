@@ -37,7 +37,15 @@ public class Login extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tryLogin();
+                tryAuthenticate(false);
+            }
+        });
+
+        Button register = (Button) findViewById(R.id.button_register);
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tryAuthenticate(true);
             }
         });
     }
@@ -67,10 +75,12 @@ public class Login extends AppCompatActivity {
     public class AccountService extends AsyncTask<Void, Void, Account> {
 
         private Account login;
+        private boolean isRegister;
 
-        public AccountService(Account login) {
+        public AccountService(Account login, boolean isRegister) {
             super();
             this.login = login;
+            this.isRegister = isRegister;
         }
 
         @Override
@@ -79,7 +89,13 @@ public class Login extends AppCompatActivity {
                 RestTemplate template = new RestTemplate();
                 template.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 
-                return template.postForObject(ApiProtocol.server + "/login", login, Account.class);
+                String serv = ApiProtocol.server;
+                if(isRegister) {
+                    serv += "/register";
+                } else {
+                    serv += "/login";
+                }
+                return template.postForObject(serv, login, Account.class);
 
             } catch (Exception e) {
                 Log.e("AccountService", e.getMessage(), e);
@@ -103,7 +119,7 @@ public class Login extends AppCompatActivity {
 
     }
 
-    private void tryLogin() {
+    private void tryAuthenticate(boolean isRegister) {
         TextView emailTV = (TextView) findViewById(R.id.email);
         TextView passwordTV = (TextView) findViewById(R.id.password);
 
@@ -111,7 +127,7 @@ public class Login extends AppCompatActivity {
         login.setEmail(emailTV.getText().toString());
         login.setPassword(passwordTV.getText().toString());
 
-        new AccountService(login).execute();
+        new AccountService(login, isRegister).execute();
 
     }
 }
