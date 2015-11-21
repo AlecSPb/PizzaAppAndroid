@@ -31,7 +31,7 @@ public class Pay extends AppCompatActivity {
         transactions = new ArrayList<>();
         paymentTransactionAdapter = new PaymentTransactionAdapter(this, this, transactions);
 
-        Button addPayment = (Button) findViewById(R.id.button_Pay); // TODO FIX
+        Button addPayment = (Button) findViewById(R.id.addPaymentButton);
         addPayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,7 +66,7 @@ public class Pay extends AppCompatActivity {
 
         double balance = totalOwed - totalPayed;
 
-        TextView balanceTV = (TextView) findViewById(R.id.button_Pay); //TODO FIX
+        TextView balanceTV = (TextView) findViewById(R.id.payBalance);
         if(balance >= 0) {
             balanceTV.setText("Balance: " + StringFormatService.sharedInstance().currencyToString(balance));
         } else {

@@ -46,6 +46,8 @@ public class Home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        myOrder = new Order();
+
         account = (Account) getIntent().getExtras().get("account");
 
         TextView pointsTV = (TextView) findViewById(R.id.points);
