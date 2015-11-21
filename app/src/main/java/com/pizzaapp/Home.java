@@ -49,7 +49,7 @@ public class Home extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Home.this, AddItem.class);
-                Home.this.startActivity(intent);
+                startActivityForResult(intent, 1);
             }
         });
     }
@@ -76,6 +76,7 @@ public class Home extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         if(requestCode == 1) {
             LineItem item = (LineItem) intent.getSerializableExtra("newLineItem");

@@ -1,8 +1,9 @@
 package com.pizzaapp.model;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-public class MenuItem {
+public class MenuItem implements Serializable {
 
     private String id;
     private String name;

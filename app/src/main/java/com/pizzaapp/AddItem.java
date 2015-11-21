@@ -1,5 +1,6 @@
 package com.pizzaapp;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -57,9 +58,10 @@ public class AddItem extends AppCompatActivity {
     }
 
     public void returnItemToHome(LineItem item) {
-        Intent intent = new Intent(AddItem.this, Home.class);
+        Intent intent = new Intent();
         intent.putExtra("newLineItem", item);
-        startActivityForResult(intent, 1);
+        setResult(Activity.RESULT_OK, intent);
+        finish();
     }
 
     public class MenuService extends AsyncTask<Void, Void, List<com.pizzaapp.model.MenuItem>> {
