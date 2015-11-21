@@ -4,45 +4,31 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.TextView;
+
+import com.pizzaapp.model.MenuItem;
+import com.pizzaapp.service.ApiProtocol;
+import com.pizzaapp.ui.MenuItemAdapter;
 
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class AddItem extends AppCompatActivity {
+
+    private final List<MenuItem> menu = new ArrayList<>();
+    private MenuItemAdapter menuItemAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
 
-    }
+        menuItemAdapter = new MenuItemAdapter(this, menu);
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_add_item, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+        new MenuService().execute();
     }
 
     public class MenuService extends AsyncTask<Void, Void, List<com.pizzaapp.model.MenuItem>> {
@@ -53,7 +39,7 @@ public class AddItem extends AppCompatActivity {
                 RestTemplate template = new RestTemplate();
                 template.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 
-                com.pizzaapp.model.MenuItem[] items = template.getForObject("http://montpelier.cs.colostate.edu:10105/menu", com.pizzaapp.model.MenuItem[].class);
+                com.pizzaapp.model.MenuItem[] items = template.getForObject(ApiProtocol.server + "/menu", com.pizzaapp.model.MenuItem[].class);
                 return Arrays.asList(items);
 
             } catch (Exception e) {
@@ -66,13 +52,10 @@ public class AddItem extends AppCompatActivity {
         protected void onPostExecute(List<com.pizzaapp.model.MenuItem> menu) {
             super.onPostExecute(menu);
 
+            AddItem.this.menu.clear();
+            AddItem.this.menu.addAll(menu);
+            AddItem.this.menuItemAdapter.notifyDataSetChanged();
 
-            String all = "";
-            for(com.pizzaapp.model.MenuItem item : menu) {
-                all += item.getName() + "\n";
-            }
-           // TextView view = (TextView) findViewById(R.id.testTextView);
-            //view.setText(all);
         }
     }
 }

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.pizzaapp.R;
@@ -24,7 +25,7 @@ public class LineItemAdapter extends ArrayAdapter<LineItem> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LineItem item = getItem(position);
+        final LineItem item = getItem(position);
         if(convertView == null) {
             convertView = inflater.inflate(R.layout.line_item_row, parent, false);
         }
@@ -38,6 +39,15 @@ public class LineItemAdapter extends ArrayAdapter<LineItem> {
 
         TextView priceTextView = (TextView) convertView.findViewById(R.id.price);
         priceTextView.setText("$" + item.getQuantity() * item.getItem().getPrice());
+
+        Button removeButton = (Button) convertView.findViewById(R.id.removeButton);
+        removeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LineItemAdapter.this.remove(item);
+                LineItemAdapter.this.notifyDataSetChanged();
+            }
+        });
 
         return convertView;
     }
