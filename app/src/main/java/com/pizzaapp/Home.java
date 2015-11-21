@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.pizzaapp.model.Account;
 import com.pizzaapp.model.LineItem;
 import com.pizzaapp.model.MenuItemStatus;
 import com.pizzaapp.ui.LineItemAdapter;
@@ -33,11 +34,16 @@ public class Home extends AppCompatActivity {
 
     public List<LineItem> myOrderItems = new ArrayList<>();
     public LineItemAdapter lineItemAdapter;
+    public Account account;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        account = (Account) getIntent().getExtras().get("account");
+
+        TextView pointsTV = (TextView) findViewById(R.id.points);
 
         lineItemAdapter = new LineItemAdapter(this, myOrderItems);
 

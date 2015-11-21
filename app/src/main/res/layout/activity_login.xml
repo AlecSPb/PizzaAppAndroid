@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Loco-Local Pizza"
+        android:text="Pizza App"
         android:id="@+id/text_CompanyName"
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.03"
@@ -69,25 +69,5 @@
             android:layout_column="2" />
 
     </GridLayout>
-
-    <TextView
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Forgot Password?"
-        android:id="@+id/link_forgotPword"
-        android:layout_gravity="center_horizontal"
-        android:textStyle="normal|italic"
-        android:textIsSelectable="true"
-        android:textColorLink="#175aea" />
-
-    <TextView
-        android:layout_width="122dp"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Continue as guest"
-        android:id="@+id/link_guest"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="0.03" />
 
 </LinearLayout>
