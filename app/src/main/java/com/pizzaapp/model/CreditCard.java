@@ -93,13 +93,12 @@ public class CreditCard implements Serializable {
 
     public boolean validExpiration(String exp){
         String year = exp.substring(3);
-        String month = exp.substring(0,1);
+        String month = exp.substring(0,2);
         int m = Integer.parseInt(month);
         int y = Integer.parseInt(year);
         System.out.println("month " + m + "year " + y);
         if (y > 2015){
             if ( m > 0 && m < 13){
-
                 return true;
             }else{
                 return false;
