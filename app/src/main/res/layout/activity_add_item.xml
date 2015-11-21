@@ -1,17 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="1">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <GridLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Loco-Local Pizza"
-        android:id="@+id/text_logo"
-        android:layout_gravity="center_horizontal"
-        android:textStyle="italic" />
+        android:layout_gravity="center_horizontal" >
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="104dp"
+            android:layout_height="37dp"
+            android:text="back"
+            android:id="@+id/button"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="55dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="0dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Loco-Local Pizza"
+            android:id="@+id/textView3"
+            android:layout_gravity="center_horizontal"
+            android:textStyle="italic"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp" />
+    </GridLayout>
 
     <TextView
         android:layout_width="wrap_content"
@@ -24,40 +48,10 @@
         android:textIsSelectable="false"
         android:textStyle="bold" />
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="340dp"
-        android:id="@+id/scrollView2"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="1.21">
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/listView"
+        tools:listitem="@android:layout/simple_list_item_1" />
 
-        <ListView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/listView" />
-    </ScrollView>
-
-    <GridLayout
-        android:layout_width="match_parent"
-        android:layout_height="76dp"
-        android:layout_gravity="center_horizontal" >
-
-        <Button
-            android:layout_width="158dp"
-            android:layout_height="64dp"
-            android:text="Submit"
-            android:id="@+id/button_Submit"
-            android:layout_row="0"
-            android:layout_column="0"
-            android:layout_marginLeft="10dp" />
-
-        <Button
-            android:layout_width="158dp"
-            android:layout_height="64dp"
-            android:text="Cancel"
-            android:id="@+id/button_Cancel"
-            android:layout_row="0"
-            android:layout_column="4"
-            android:layout_marginRight="10dp" />
-    </GridLayout>
 </LinearLayout>
