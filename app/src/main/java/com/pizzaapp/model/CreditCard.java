@@ -47,11 +47,7 @@ public class CreditCard implements Serializable {
 
     public boolean validCC(String cardNumber){
         String number = "0123456789";
-//        try{
-//            int x = Integer.parseInt(cardNumber);
-//        }catch(Exception e){
-//            return false;
-//        }
+
         for(int i=0; i<cardNumber.length(); i++) {
             if (number.indexOf(cardNumber.charAt(i)) == -1) {
                 return false;
