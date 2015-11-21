@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.pizzaapp.R;
 import com.pizzaapp.model.LineItem;
+import com.pizzaapp.util.StringFormatService;
 
 import java.util.List;
 
@@ -38,7 +39,8 @@ public class LineItemAdapter extends ArrayAdapter<LineItem> {
         quantityTextView.setText(item.getQuantity() + "x");
 
         TextView priceTextView = (TextView) convertView.findViewById(R.id.price);
-        priceTextView.setText("$" + item.getQuantity() * item.getItem().getPrice());
+        double totalPrice = item.getItem().getPrice() * item.getQuantity();
+        priceTextView.setText(StringFormatService.sharedInstance().currencyToString(totalPrice));
 
         Button removeButton = (Button) convertView.findViewById(R.id.removeButton);
         removeButton.setOnClickListener(new View.OnClickListener() {

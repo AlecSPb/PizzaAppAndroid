@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.pizzaapp.R;
 import com.pizzaapp.model.MenuItem;
+import com.pizzaapp.util.StringFormatService;
 
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class MenuItemAdapter extends ArrayAdapter<MenuItem> {
         textView.setText(item.getName());
 
         TextView priceTextView = (TextView) convertView.findViewById(R.id.price);
-        priceTextView.setText("$" + item.getPrice());
+        priceTextView.setText(StringFormatService.sharedInstance().currencyToString(item.getPrice()));
 
         if(item.getIsSpecial())
             priceTextView.setTextColor(Color.rgb(247, 202, 24));
