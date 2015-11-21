@@ -69,6 +69,17 @@ public class AddPayment extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), name + " " + cardNumber + " " + amount + " " + expDate, Toast.LENGTH_LONG).show();
 
                 //Intent i = new Intent(AddPayment.this, Summary.class);
+
+                /*
+                MenuItem selectedItem = menu.get(pos);
+                PaymentTransaction
+                LineItem newItem = new LineItem();
+                newItem.setQuantity(1);
+                newItem.setItem(selectedItem);
+                Toast.makeText(getApplicationContext(), "Added " + selectedItem.toString(), Toast.LENGTH_LONG).show();
+
+                AddItem.this.returnItemToHome(newItem);
+                */
             }
         });
     }
