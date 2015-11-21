@@ -1,10 +1,12 @@
 package com.pizzaapp;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.pizzaapp.model.LineItem;
 import com.pizzaapp.model.MenuItem;
 import com.pizzaapp.service.ApiProtocol;
 import com.pizzaapp.ui.MenuItemAdapter;
@@ -56,6 +58,12 @@ public class AddItem extends AppCompatActivity {
             AddItem.this.menu.addAll(menu);
             AddItem.this.menuItemAdapter.notifyDataSetChanged();
 
+        }
+
+
+        private void returnItemToHome(LineItem item) {
+            //Intent intent = new Intent(AddItem.this, Home.class);
+            //startActivityForResult();
         }
     }
 }

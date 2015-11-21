@@ -2,6 +2,7 @@ package com.pizzaapp;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -37,28 +39,17 @@ public class Home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        com.pizzaapp.model.MenuItem item = new com.pizzaapp.model.MenuItem();
-        item.setId("id");
-        item.setInStock(true);
-        item.setIsSpecial(true);
-        item.setName("Beer");
-        item.setPrice(14.99);
-        item.setSize("Large");
-        item.setStatus(MenuItemStatus.OPEN);
-
-        LineItem lineItem = new LineItem();
-        lineItem.setQuantity(2);
-        lineItem.setItem(item);
-
-        myOrderItems.add(lineItem);
-
         lineItemAdapter = new LineItemAdapter(this, myOrderItems);
 
         ListView view = (ListView) findViewById(R.id.listView2);
         view.setAdapter(lineItemAdapter);
-        view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+        Button addButton = (Button) findViewById(R.id.button_Add);
+        addButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onClick(View v) {
+                Intent intent = new Intent(Home.this, AddItem.class);
+                Home.this.startActivity(intent);
             }
         });
     }
@@ -85,5 +76,21 @@ public class Home extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        LineItem item = (LineItem) intent.getSerializableExtra("newLineItem");
+
+        boolean alreadyExists = false;
+        for (LineItem myOrderItem : myOrderItems) {
+            if(myOrderItem.getItem().getName().equals(item.getItem().getName())) {
+                myOrderItem.setQuantity(myOrderItem.getQuantity() + 1);
+                alreadyExists = true;
+                break;
+            }
+        }
+
+        if(!alreadyExists) {
+            myOrderItems.add(item);
+        }
+    }
 
 }
