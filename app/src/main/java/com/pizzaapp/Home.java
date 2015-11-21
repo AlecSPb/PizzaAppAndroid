@@ -15,11 +15,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.pizzaapp.model.Account;
 import com.pizzaapp.model.LineItem;
 import com.pizzaapp.model.MenuItemStatus;
 import com.pizzaapp.model.Order;
+import com.pizzaapp.service.ApiProtocol;
 import com.pizzaapp.ui.LineItemAdapter;
 import com.pizzaapp.ui.MenuItemAdapter;
 import com.pizzaapp.util.StringFormatService;
@@ -126,8 +128,9 @@ public class Home extends AppCompatActivity {
         } else if(requestCode == 2) {
             Order finishedOrder = (Order) intent.getSerializableExtra("finishedOrder");
             if (finishedOrder != null) {
-                // TODO send to server
+                new OrderService(finishedOrder).execute();
                 resetOrder();
+                updateTotal();
             }
         }
     }
@@ -148,4 +151,36 @@ public class Home extends AppCompatActivity {
         lineItemAdapter.notifyDataSetChanged();
     }
 
+    public class OrderService extends AsyncTask<Void, Void, Order> {
+
+        public Order finishedOrder;
+
+        public OrderService(Order finishedOrder) {
+            super();
+            this.finishedOrder = finishedOrder;
+        }
+
+        @Override
+        protected Order doInBackground(Void... params) {
+            try {
+                RestTemplate template = new RestTemplate();
+                template.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+
+                return template.postForObject(ApiProtocol.server + "/orders", finishedOrder, Order.class);
+
+            } catch (Exception e) {
+                Log.e("OrderService", e.getMessage(), e);
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Order order) {
+            super.onPostExecute(order);
+
+            Toast.makeText(getApplicationContext(), "Order placed.", Toast.LENGTH_LONG).show();
+        }
+
+
+    }
 }
