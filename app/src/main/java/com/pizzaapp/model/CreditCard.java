@@ -28,8 +28,8 @@ public class CreditCard implements Serializable {
         }
         else{
             String number = "0123456789";
-            for(int i=0; i<number.length(); i++) {
-                if (cvs.indexOf(number.charAt(i)) == -1) {
+            for(int i=0; i<cvs.length(); i++) {
+                if (number.indexOf(cvs.charAt(i)) == -1) {
                     return false;
                 }
             }
@@ -52,12 +52,12 @@ public class CreditCard implements Serializable {
 //        }catch(Exception e){
 //            return false;
 //        }
-//        for(int i=0; i<number.length(); i++) {
-//            if (cardNumber.indexOf(number.charAt(i)) == -1) {
-//                return false;
-//            }
-//
-//        }
+        for(int i=0; i<cardNumber.length(); i++) {
+            if (number.indexOf(cardNumber.charAt(i)) == -1) {
+                return false;
+            }
+
+        }
         if(cardNumber.length() != 16){
             return false;
         }
@@ -92,13 +92,14 @@ public class CreditCard implements Serializable {
     }
 
     public boolean validExpiration(String exp){
-        String year = exp.substring(4);
+        String year = exp.substring(3);
         String month = exp.substring(0,1);
         int m = Integer.parseInt(month);
         int y = Integer.parseInt(year);
-
+        System.out.println("month " + m + "year " + y);
         if (y > 2015){
             if ( m > 0 && m < 13){
+
                 return true;
             }else{
                 return false;

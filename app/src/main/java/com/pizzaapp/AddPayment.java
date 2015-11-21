@@ -69,10 +69,6 @@ public class AddPayment extends AppCompatActivity {
                     setResult(Activity.RESULT_OK, intent);
                     finish();
                 }
-
-
-
-                Toast.makeText(getApplicationContext(), name + " " + cardNumber + " " + amount + " " + expDate, Toast.LENGTH_LONG).show();
             }
         });
     }
