@@ -67,7 +67,7 @@
             android:layout_width="158dp"
             android:layout_height="64dp"
             android:text="Finish"
-            android:id="@+id/buttonFinish"
+            android:id="@+id/payFinishButton"
             android:layout_row="0"
             android:layout_column="4"
             android:layout_marginRight="10dp" />

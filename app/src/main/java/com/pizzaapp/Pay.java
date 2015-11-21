@@ -66,11 +66,14 @@ public class Pay extends AppCompatActivity {
 
         double balance = totalOwed - totalPayed;
 
+        Button finishButton = (Button) findViewById(R.id.payFinishButton);
         TextView balanceTV = (TextView) findViewById(R.id.payBalance);
         if(balance >= 0) {
             balanceTV.setText("Balance: " + StringFormatService.sharedInstance().currencyToString(balance));
+            finishButton.setEnabled(false);
         } else {
             balanceTV.setText("Tip: " + StringFormatService.sharedInstance().currencyToString(-balance));
+            finishButton.setEnabled(true);
         }
     }
 }
