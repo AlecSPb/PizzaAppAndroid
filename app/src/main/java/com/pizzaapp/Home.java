@@ -77,19 +77,23 @@ public class Home extends AppCompatActivity {
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        LineItem item = (LineItem) intent.getSerializableExtra("newLineItem");
+        if(requestCode == 1) {
+            LineItem item = (LineItem) intent.getSerializableExtra("newLineItem");
 
-        boolean alreadyExists = false;
-        for (LineItem myOrderItem : myOrderItems) {
-            if(myOrderItem.getItem().getName().equals(item.getItem().getName())) {
-                myOrderItem.setQuantity(myOrderItem.getQuantity() + 1);
-                alreadyExists = true;
-                break;
+            boolean alreadyExists = false;
+            for (LineItem myOrderItem : myOrderItems) {
+                if (myOrderItem.getItem().getName().equals(item.getItem().getName())) {
+                    myOrderItem.setQuantity(myOrderItem.getQuantity() + 1);
+                    alreadyExists = true;
+                    break;
+                }
             }
-        }
 
-        if(!alreadyExists) {
-            myOrderItems.add(item);
+            if (!alreadyExists) {
+                myOrderItems.add(item);
+            }
+
+            lineItemAdapter.notifyDataSetChanged();
         }
     }
 

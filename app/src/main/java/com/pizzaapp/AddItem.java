@@ -44,15 +44,22 @@ public class AddItem extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> arg0, View v, int pos, long id) {
                 MenuItem selectedItem = menu.get(pos);
+                LineItem newItem = new LineItem();
+                newItem.setQuantity(1);
+                newItem.setItem(selectedItem);
                 Toast.makeText(getApplicationContext(), "Added " + selectedItem, Toast.LENGTH_LONG).show();
 
-                Intent intent = new Intent(AddItem.this, Home.class);
-                intent.putExtra("key", "value");
-                AddItem.this.startActivity(intent);
+                AddItem.this.returnItemToHome(newItem);
             }
         });
 
         new MenuService().execute();
+    }
+
+    public void returnItemToHome(LineItem item) {
+        Intent intent = new Intent(AddItem.this, Home.class);
+        intent.putExtra("newLineItem", item);
+        startActivityForResult(intent, 1);
     }
 
     public class MenuService extends AsyncTask<Void, Void, List<com.pizzaapp.model.MenuItem>> {
@@ -83,9 +90,5 @@ public class AddItem extends AppCompatActivity {
         }
 
 
-        private void returnItemToHome(LineItem item) {
-            //Intent intent = new Intent(AddItem.this, Home.class);
-            //startActivityForResult();
-        }
     }
 }

@@ -1,9 +1,10 @@
 package com.pizzaapp.model;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 
-public class LineItem {
+public class LineItem implements Serializable {
 
     private String id;
     private int quantity;
