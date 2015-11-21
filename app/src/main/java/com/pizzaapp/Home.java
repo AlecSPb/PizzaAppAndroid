@@ -74,7 +74,7 @@ public class Home extends AppCompatActivity {
                 Intent intent = new Intent(Home.this, Pay.class);
                 myOrder.setLineItems(myOrderItems);
                 intent.putExtra("order", myOrder);
-                startActivity(intent);
+                startActivityForResult(intent, 2);
             }
         });
     }
@@ -122,6 +122,10 @@ public class Home extends AppCompatActivity {
             updateTotal();
 
             lineItemAdapter.notifyDataSetChanged();
+        } else if(requestCode == 2) {
+            Order finishedOrder = (Order) intent.getSerializableExtra("finishedOrder");
+            // TODO send to server
+            resetOrder();
         }
     }
 

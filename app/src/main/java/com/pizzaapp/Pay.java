@@ -1,10 +1,12 @@
 package com.pizzaapp;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.pizzaapp.model.LineItem;
@@ -39,6 +41,20 @@ public class Pay extends AppCompatActivity {
                 startActivityForResult(intent, 1);
             }
         });
+
+        Button finishPayment = (Button) findViewById(R.id.payFinishButton);
+        finishPayment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                order.setTransactions(transactions);
+                Intent intent = new Intent(Pay.this, Summary.class);
+                intent.putExtra("order", order);
+                startActivityForResult(intent, 2);
+            }
+        });
+
+        ListView paymentListView = (ListView)findViewById(R.id.payListView);
+        paymentListView.setAdapter(paymentTransactionAdapter);
     }
 
 
@@ -50,6 +66,12 @@ public class Pay extends AppCompatActivity {
             updateBalance();
 
             paymentTransactionAdapter.notifyDataSetChanged();
+        } else if(requestCode == 2) {
+            Order finishedOrder = (Order) intent.getSerializableExtra("finishedOrder");
+            Intent unwind = new Intent();
+            unwind.putExtra("finishedOrder", finishedOrder);
+            setResult(Activity.RESULT_OK, unwind);
+            finish();
         }
     }
 
