@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:weightSum="1">
 
     <TextView
         android:layout_width="wrap_content"
@@ -29,9 +30,12 @@
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="185dp"
+        android:layout_height="138dp"
         android:id="@+id/summaryMenuItems"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.90"
+        android:fastScrollEnabled="true"
+        android:nestedScrollingEnabled="true" />
 
     <EditText
         android:layout_width="match_parent"
@@ -39,7 +43,6 @@
         android:inputType="textPersonName"
         android:ems="10"
         android:id="@+id/summaryPhone"
-        android:layout_gravity="center_horizontal"
         android:hint="Phone Number" />
 
     <EditText
@@ -51,7 +54,7 @@
 
     <GridLayout
         android:layout_width="match_parent"
-        android:layout_height="93dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:rowCount="3"
         android:columnCount="3"

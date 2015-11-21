@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.pizzaapp.model.Address;
 import com.pizzaapp.model.Order;
@@ -47,14 +48,21 @@ public class Summary extends AppCompatActivity {
                 address.setLocality(state.getText().toString());
                 address.setPostalCode(zip.getText().toString());
                 address.setCountry(country.getText().toString());
-
                 myOrder.setAddress(address);
                 myOrder.setPhoneNumber(phone.getText().toString());
 
-                Intent intent = new Intent();
-                intent.putExtra("finishedOrder", myOrder);
-                setResult(Activity.RESULT_OK, intent);
-                finish();
+                if(!address.validState(address.getLocality())){
+                    Toast.makeText(getApplicationContext(), "Invalid State Entered. Order not submitted", Toast.LENGTH_LONG).show();
+                }else if(!address.validZip(address.getPostalCode())){
+                    Toast.makeText(getApplicationContext(), "Invalid Zip Code Entered. Order not submitted", Toast.LENGTH_LONG).show();
+                }else if(!myOrder.validPhone(myOrder.getPhoneNumber())){
+                    Toast.makeText(getApplicationContext(), "Invalid Phone Number Entered. Order not submitted", Toast.LENGTH_LONG).show();
+                }else{
+                    Intent intent = new Intent();
+                    intent.putExtra("finishedOrder", myOrder);
+                    setResult(Activity.RESULT_OK, intent);
+                    finish();
+                }
             }
         });
     }

@@ -26,6 +26,23 @@ public class Order implements Serializable {
         transactions = new ArrayList<PaymentTransaction>();
     }
 
+    public boolean validPhone(String phone){
+        String number = "0123456789";
+
+        for(int i=0; i<phone.length(); i++) {
+            if (number.indexOf(phone.charAt(i)) == -1) {
+                return false;
+            }
+
+        }
+
+        if (phone.length() != 10){
+            return false;
+        }
+
+        return true;
+    }
+
     public String getId() {
         return id;
     }

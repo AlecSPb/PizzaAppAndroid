@@ -41,6 +41,29 @@ public class Address implements Serializable {
         return str;
     }
 
+    public boolean validState(String state){
+        if (state.length() != 2){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    public boolean validZip(String Zip){
+        String number = "0123456789";
+
+        for(int i=0; i<Zip.length(); i++) {
+            if (number.indexOf(Zip.charAt(i)) == -1) {
+                return false;
+            }
+
+        }
+        if (Zip.length() != 5){
+            return false;
+        }
+        return true;
+    }
+
     public String getAddress1() {
         return address1;
     }
