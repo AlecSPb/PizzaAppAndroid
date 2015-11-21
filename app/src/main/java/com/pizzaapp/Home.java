@@ -44,6 +44,7 @@ public class Home extends AppCompatActivity {
         account = (Account) getIntent().getExtras().get("account");
 
         TextView pointsTV = (TextView) findViewById(R.id.points);
+        pointsTV.setText("Points: " + account.getPoints());
 
         lineItemAdapter = new LineItemAdapter(this, myOrderItems);
 
