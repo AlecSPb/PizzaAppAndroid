@@ -59,7 +59,7 @@
         <Button
             android:layout_width="158dp"
             android:layout_height="64dp"
-            android:text="Add"
+            android:text="Add Payment"
             android:id="@+id/addPaymentButton"
             android:layout_row="0"
             android:layout_column="0"

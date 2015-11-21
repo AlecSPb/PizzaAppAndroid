@@ -103,6 +103,7 @@ public class Home extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        if(resultCode == RESULT_CANCELED) return;
         if(requestCode == 1) {
             LineItem item = (LineItem) intent.getSerializableExtra("newLineItem");
 
@@ -124,8 +125,10 @@ public class Home extends AppCompatActivity {
             lineItemAdapter.notifyDataSetChanged();
         } else if(requestCode == 2) {
             Order finishedOrder = (Order) intent.getSerializableExtra("finishedOrder");
-            // TODO send to server
-            resetOrder();
+            if (finishedOrder != null) {
+                // TODO send to server
+                resetOrder();
+            }
         }
     }
 

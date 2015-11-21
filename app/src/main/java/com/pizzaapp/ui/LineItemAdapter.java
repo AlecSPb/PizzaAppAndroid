@@ -49,11 +49,19 @@ public class LineItemAdapter extends ArrayAdapter<LineItem> {
         removeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LineItemAdapter.this.remove(item);
-                LineItemAdapter.this.notifyDataSetChanged();
-                home.updateTotal();
+                if(home != null) {
+                    LineItemAdapter.this.remove(item);
+                    LineItemAdapter.this.notifyDataSetChanged();
+                    home.updateTotal();
+                }
             }
         });
+
+        if(home == null) {
+            removeButton.setVisibility(View.GONE);
+        } else {
+            removeButton.setVisibility(View.VISIBLE);
+        }
 
         return convertView;
     }

@@ -55,23 +55,29 @@ public class Pay extends AppCompatActivity {
 
         ListView paymentListView = (ListView)findViewById(R.id.payListView);
         paymentListView.setAdapter(paymentTransactionAdapter);
+        updateBalance();
     }
 
 
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        if(resultCode == RESULT_CANCELED) return;
+
         if(requestCode == 1) {
             PaymentTransaction transaction = (PaymentTransaction) intent.getSerializableExtra("newPayment");
-            transactions.add(transaction);
-
-            updateBalance();
+            if(transaction != null) {
+                transactions.add(transaction);
+                updateBalance();
+            }
 
             paymentTransactionAdapter.notifyDataSetChanged();
         } else if(requestCode == 2) {
             Order finishedOrder = (Order) intent.getSerializableExtra("finishedOrder");
-            Intent unwind = new Intent();
-            unwind.putExtra("finishedOrder", finishedOrder);
-            setResult(Activity.RESULT_OK, unwind);
-            finish();
+            if(finishedOrder != null) {
+                Intent unwind = new Intent();
+                unwind.putExtra("finishedOrder", finishedOrder);
+                setResult(Activity.RESULT_OK, unwind);
+                finish();
+            }
         }
     }
 
