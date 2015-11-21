@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.pizzaapp.Home;
 import com.pizzaapp.R;
 import com.pizzaapp.model.LineItem;
 import com.pizzaapp.util.StringFormatService;
@@ -18,10 +19,12 @@ import java.util.List;
 public class LineItemAdapter extends ArrayAdapter<LineItem> {
 
     LayoutInflater inflater;
+    Home home;
 
-    public LineItemAdapter(Context context, List<LineItem> items) {
+    public LineItemAdapter(Context context, Home home, List<LineItem> items) {
         super(context, 0, items);
         inflater = LayoutInflater.from(context);
+        this.home = home;
     }
 
     @Override
@@ -48,6 +51,7 @@ public class LineItemAdapter extends ArrayAdapter<LineItem> {
             public void onClick(View v) {
                 LineItemAdapter.this.remove(item);
                 LineItemAdapter.this.notifyDataSetChanged();
+                home.updateTotal();
             }
         });
 

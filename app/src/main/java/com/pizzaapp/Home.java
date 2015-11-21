@@ -21,6 +21,7 @@ import com.pizzaapp.model.LineItem;
 import com.pizzaapp.model.MenuItemStatus;
 import com.pizzaapp.ui.LineItemAdapter;
 import com.pizzaapp.ui.MenuItemAdapter;
+import com.pizzaapp.util.StringFormatService;
 
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
@@ -35,6 +36,7 @@ public class Home extends AppCompatActivity {
     public List<LineItem> myOrderItems = new ArrayList<>();
     public LineItemAdapter lineItemAdapter;
     public Account account;
+    public double total;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +48,7 @@ public class Home extends AppCompatActivity {
         TextView pointsTV = (TextView) findViewById(R.id.points);
         pointsTV.setText("Points: " + account.getPoints());
 
-        lineItemAdapter = new LineItemAdapter(this, myOrderItems);
+        lineItemAdapter = new LineItemAdapter(this, this, myOrderItems);
 
         ListView view = (ListView) findViewById(R.id.listView2);
         view.setAdapter(lineItemAdapter);
@@ -101,8 +103,20 @@ public class Home extends AppCompatActivity {
                 myOrderItems.add(item);
             }
 
+            updateTotal();
+
             lineItemAdapter.notifyDataSetChanged();
         }
+    }
+
+    public void updateTotal() {
+        total = 0.0;
+        for (LineItem myOrderItem : myOrderItems) {
+            total += myOrderItem.getQuantity() * myOrderItem.getItem().getPrice();
+        }
+
+        TextView totalTV = (TextView) findViewById(R.id.total);
+        totalTV.setText("Total: " + StringFormatService.sharedInstance().currencyToString(total));
     }
 
 }

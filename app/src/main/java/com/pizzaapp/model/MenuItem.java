@@ -75,6 +75,11 @@ public class MenuItem implements Serializable {
     }
 
     public void setStatus(MenuItemStatus status){
+
         this.status = status;
+    }
+
+    public String toString() {
+        return name;
     }
 }
