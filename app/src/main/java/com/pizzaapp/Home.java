@@ -14,6 +14,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.pizzaapp.model.LineItem;
+import com.pizzaapp.model.MenuItemStatus;
+import com.pizzaapp.ui.LineItemAdapter;
+import com.pizzaapp.ui.MenuItemAdapter;
+
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 
@@ -23,39 +28,37 @@ import java.util.List;
 
 public class Home extends AppCompatActivity {
 
-    
+
+    public List<LineItem> myOrderItems = new ArrayList<>();
+    public LineItemAdapter lineItemAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        final List<String> list = new ArrayList<>();
-        list.add("first");
-        list.add("second");
-        list.add("third");
+        com.pizzaapp.model.MenuItem item = new com.pizzaapp.model.MenuItem();
+        item.setId("id");
+        item.setInStock(true);
+        item.setIsSpecial(true);
+        item.setName("Beer");
+        item.setPrice(14.99);
+        item.setSize("Large");
+        item.setStatus(MenuItemStatus.OPEN);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getBaseContext(), R.layout.list, list);
+        LineItem lineItem = new LineItem();
+        lineItem.setQuantity(2);
+        lineItem.setItem(item);
+
+        myOrderItems.add(lineItem);
+
+        lineItemAdapter = new LineItemAdapter(this, myOrderItems);
+
         ListView view = (ListView) findViewById(R.id.listView2);
-        view.setAdapter(adapter);
+        view.setAdapter(lineItemAdapter);
         view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                new AlertDialog.Builder(view.getContext())
-                        .setTitle(list.get(position))
-                        .setMessage("weooooo")
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // continue with delete
-                            }
-                        })
-                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // do nothing
-                            }
-                        })
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
             }
         });
     }

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="name"
+            android:id="@+id/itemName"
+            android:textSize="24dp"
+            android:layout_marginLeft="43dp"
+            android:layout_marginStart="43dp"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/quantity"
+            android:layout_toEndOf="@+id/quantity"
+            android:layout_marginTop="30dp" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="remove"
+            android:id="@+id/removeButton"
+            android:layout_alignBottom="@+id/itemName"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2x"
+            android:id="@+id/quantity"
+            android:textSize="24dp"
+            android:layout_alignTop="@+id/itemName"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:paddingLeft="12dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="price"
+            android:id="@+id/price"
+            android:textSize="24dp"
+            android:layout_marginRight="51dp"
+            android:layout_marginEnd="51dp"
+            android:layout_alignBottom="@+id/removeButton"
+            android:layout_toLeftOf="@+id/removeButton"
+            android:layout_toStartOf="@+id/removeButton" />
+
+    </RelativeLayout>
+</LinearLayout>
